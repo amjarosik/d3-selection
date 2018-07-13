@@ -2,7 +2,7 @@ var filterEvents = {};
 
 export var event = null;
 
-if (typeof document !== "undefined") {
+if (typeof document !== "undefined" && typeof document.documentElement !== "undefined") {
   var element = document.documentElement;
   if (!("onmouseenter" in element)) {
     filterEvents = {mouseenter: "mouseover", mouseleave: "mouseout"};
