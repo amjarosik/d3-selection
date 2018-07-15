@@ -23,6 +23,7 @@
     "url": "https://github.com/d3/d3-selection.git"
   },
   "scripts": {
+    "pretestXXX": "mkdir dist && rollup -c --banner \"$(preamble)\"",
     "pretest": "rm -rf dist && mkdir dist && rollup -c --banner \"$(preamble)\"",
     "test": "tape 'test/**/*-test.js' && eslint index.js src",
     "prepublishOnly": "npm run test && uglifyjs -b beautify=false,preamble=\"'$(preamble)'\" dist/d3-selection.js -c -m -o dist/d3-selection.min.js",
@@ -32,7 +33,6 @@
     "eslint": "4",
     "jsdom": "11",
     "package-preamble": "0.1",
-    "rimraf": "2.6.2",
     "rollup": "0.52",
     "tape": "4",
     "uglify-js": "3.2"
