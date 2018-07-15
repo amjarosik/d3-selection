@@ -1,4 +1,4 @@
-// https://d3js.org/d3-selection/ Version 1.3.0. Copyright 2018 Mike Bostock.
+$(preamble)
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
 	typeof define === 'function' && define.amd ? define(['exports'], factory) :
@@ -93,27 +93,25 @@ function selection_selectAll(select) {
 }
 
 var matcher = function(selector) {
-        if (typeof document !== "undefined") {
-            var element = document.documentElement;
-            if (!element.matches) {
-                var vendorMatches = element.webkitMatchesSelector
-                    || element.msMatchesSelector
-                    || element.mozMatchesSelector
-                    || element.oMatchesSelector;
-                return function() {
-                    return vendorMatches.call(this, selector);
-                };
-            }
+    if (typeof document !== "undefined") {
+        var element = document.documentElement;
+        if (!element.matches) {
+            var vendorMatches = element.webkitMatchesSelector
+                || element.msMatchesSelector
+                || element.mozMatchesSelector
+                || element.oMatchesSelector;
+            return function() {
+                return vendorMatches.call(this, selector);
+            };
         }
-        return function() {
-            return this.matches(selector);
-        };
+    }
+    return function() {
+        return this.matches(selector);
+    };
 };
 
-var matcher$1 = matcher;
-
 function selection_filter(match) {
-  if (typeof match !== "function") match = matcher$1(match);
+  if (typeof match !== "function") match = matcher(match);
 
   for (var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j) {
     for (var group = groups[j], n = group.length, subgroup = subgroups[j] = [], node, i = 0; i < n; ++i) {
@@ -695,9 +693,9 @@ var filterEvents = {};
 exports.event = null;
 
 if (typeof document !== "undefined" && typeof document.documentElement !== "undefined") {
-  var element$1 = document.documentElement;
-  if (!("onmouseenter" in element$1)) {
-      filterEvents = {mouseenter: "mouseover", mouseleave: "mouseout"};
+  var element = document.documentElement;
+  if (!("onmouseenter" in element)) {
+    filterEvents = {mouseenter: "mouseover", mouseleave: "mouseout"};
   }
 }
 
@@ -971,7 +969,7 @@ function touches(node, touches) {
 exports.create = create;
 exports.creator = creator;
 exports.local = local;
-exports.matcher = matcher$1;
+exports.matcher = matcher;
 exports.mouse = mouse;
 exports.namespace = namespace;
 exports.namespaces = namespaces;
